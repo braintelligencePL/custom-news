@@ -16,4 +16,4 @@ class NewsCreatorController(
             newsCreatorService.prepareWeeklyNews(newWeeklyNews)
 
 }
- 
+
