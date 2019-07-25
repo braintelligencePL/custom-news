@@ -1,24 +1,21 @@
 package pl.braintelligence.infrastructure.adapters.incoming.api.tags
 
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
-import pl.braintelligence.domain.tags.TagsService
+import org.springframework.web.bind.annotation.*
+import pl.braintelligence.domain.ports.incoming.TagsPort
 import pl.braintelligence.infrastructure.adapters.incoming.api.tags.dto.NewTagDto
 
 @RestController("/tags")
 class TagsCreatorController(
-        private val tagsService: TagsService
+        private val tagsPort: TagsPort
 ) {
 
     @PostMapping
-    fun createTags(@RequestBody newTagDto: NewTagDto): Nothing = tagsService.createTags()
+    fun createTags(@RequestBody newTagDto: NewTagDto): Unit = tagsPort.createTags(newTagDto)
 
-    @DeleteMapping("change")
-    fun changeTags(@RequestBody newTagDto: NewTagDto): Nothing = tagsService.changeTags()
+    @PutMapping
+    fun changeTags(@RequestBody newTagDto: NewTagDto): Unit = tagsPort.changeTags(newTagDto)
 
-    @DeleteMapping("remove")
-    fun removeTags(@RequestBody newTagDto: NewTagDto): Nothing = tagsService.removeTags()
+    @DeleteMapping
+    fun removeTags(@RequestBody newTagDto: NewTagDto): Unit = tagsPort.removeTags(newTagDto)
 
 }
